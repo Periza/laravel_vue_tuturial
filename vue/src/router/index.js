@@ -21,7 +21,7 @@ const routes = [
             },
             {
                 path: '/surveys',
-                name: 'Surverys',
+                name: 'Surveys',
                 component: Surveys
             }
         ]
