@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rules\Password;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function register(Request $request) {
         
         $data = $request->validate([
-            'name' => 'requred|string',
+            'name' => 'required|string',
             'email' => 'required|email|string|unique:users,email',
             'password' => [
                 'required',
