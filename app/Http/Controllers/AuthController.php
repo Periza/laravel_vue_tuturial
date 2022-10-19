@@ -37,25 +37,25 @@ class AuthController extends Controller
 
     public function login(Request $request) 
     {
-        $credidentials = $request->validate([
-            'email' => 'requred|email|string|exists:users,email',
+        $credentials = $request->validate([
+            'email' => 'required|email|string|exists:users,email',
             'password' => [
                 'required'
             ],
             'remember' => 'boolean'
         ]);
 
-        $remember = $credidentials['remember'] ?? false;
-        unset($credidentials['remember']);
+        $remember = $credentials['remember'] ?? false;
+        unset($credentials['remember']);
 
-        if(!Auth::attempt($credidentials, $remember)) {
+        if(!Auth::attempt($credentials, $remember)) {
             return response([
                 'error' => 'The Provided credentials are not correct'
             ], 422);
         }
 
         $user = Auth::user();
-        $token = $user->createToken('main')->plainTextToken();
+        $token = $user->createToken('main')->plainTextToken;
 
         return response([
             'user' => $user,
