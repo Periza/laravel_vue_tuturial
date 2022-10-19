@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => {
     } else  if(store.state.user.token && to.meta.isGuest){
         next({name: 'Dashboard'});
     } else {
-        next()
+        next();
     }
 });
 

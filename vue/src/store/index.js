@@ -24,14 +24,14 @@ const store = createStore( {
         register({commit}, user) {
             return axiosClient.post('/register', user).
             then(({data}) => {
-                commit('setUser', data.user)
+                commit('setUser', data)
                 return data;
             });
         },
         login({commit}, user) {
             return axiosClient.post('/login', user).
                 then(({data}) => {
-                    commit('setUser', data.user)
+                    commit('setUser', data)
                     return data;
                 })
         }

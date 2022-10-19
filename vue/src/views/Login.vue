@@ -64,7 +64,6 @@ const user = {
 }
 
 function login(ev) {
-  // console.log('login'); werks
   ev.preventDefault();
 
   store
