@@ -5,9 +5,9 @@ const axiosClient = axios.create({
     baseURL: 'http://localhost:8000/api'
 });
 
-axiosClient.interceptors.request.use((config) => {
-    config.headers.Autorization = `Bearer ${store.state.user.token}`
+axiosClient.interceptors.request.use(config => {
+    config.headers.Authorization = `Bearer ${store.state.user.token}`
     return config;
-});
+  })
 
 export default axiosClient;
