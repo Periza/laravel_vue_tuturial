@@ -22,10 +22,9 @@ const store = createStore({
           {
             id: 1,
             type: 'select',
-            question: 'Select your country?',
+            question: 'From which country are you?',
             description: null,
             data: {
-              multiple: false,
               options: [
                 {uuid: 'f8af96f2-1d80-4632-9e9e-b560670e52ea', text: 'USA'},
                 {uuid: '201c1ff5-23c9-42f9-bfb5-bbc850536440', text: 'Georgia'},
@@ -95,6 +94,13 @@ const store = createStore({
           {
             id: 6,
             type: 'text',
+            question: 'What\'s your favourite YouTube channel?',
+            description: null,
+            data: null
+          },
+          {
+            id: 7,
+            type: 'textarea',
             question: 'What do you think about TheCodeholic channel?',
             description: 'Write your honest opinion. Everything is anonymous.',
             data: null
@@ -111,6 +117,7 @@ const store = createStore({
         created_at: "2021-12-20 18:00:00",
         updated_at: "2021-12-20 18:00:00",
         expire_date: "2021-12-31 18:00:00",
+        questions: []
       },
       {
         id: 3,
@@ -122,6 +129,7 @@ const store = createStore({
         created_at: "2021-12-21 17:00:00",
         updated_at: "2021-12-21 17:00:00",
         expire_date: "2021-12-31 00:00:00",
+        questions: []
       },
       {
         id: 4,
@@ -133,8 +141,10 @@ const store = createStore({
         created_at: "2021-12-21 14:00:00",
         updated_at: "2021-12-21 14:00:00",
         expire_date: "2021-12-31 00:00:00",
+        questions: []
       },
     ],
+    questionTypes: ['text', 'select', 'radio', 'checkbox', 'textarea']
   },
   getters: {},
   actions: {
