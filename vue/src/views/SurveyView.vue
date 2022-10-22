@@ -254,10 +254,12 @@
 </template>
 
 <script setup>
+import QuestionEditor from "../components/editor/QuestionEditor.vue"
 import PageComponent from "../components/PageComponent.vue";
 import store from "../store"
-import {ref} from "vue"
-import {useRoute} from "vue-router"
+import { ref } from "vue"
+import { useRoute } from "vue-router"
+
 
 const route = useRoute();
 
