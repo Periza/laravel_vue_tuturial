@@ -7,6 +7,12 @@ const store = createStore({
       data: {},
       token: sessionStorage.getItem('TOKEN'),
     },
+    currentSurvey : {
+      loading: false,
+      data: {
+
+      }
+    },
     surveys: [
       {
         id: 1,
@@ -148,6 +154,18 @@ const store = createStore({
   },
   getters: {},
   actions: {
+    getSurvey({commit}, id) {
+      commit("setCurrentSurveyLoading", true);
+      return axiosClient.get(`/survey/${id}`)
+            .then((res) => {
+              commit("setCurrentSurvey", res.data);
+              commit("setCurrentSurveyLoading", false);
+              return res;
+            }).catch((err) => {
+              commit("setCurrentLoading", false);
+              throw err;
+            });
+    },
     saveSurvey({ commit }, survey) {
       let response;
       if(survey.id) {
@@ -186,6 +204,12 @@ const store = createStore({
     }
   },
   mutations: {
+    setCurrentSurveyLoading: (state, loading) => {
+      state.currentSurvey.loading = loading;
+    },
+    setCurrentSurvey: (state, survey) => {
+      state.currentSurvey.data = survey.data;
+    },
     saveSurvey: (state, survey) => {
       state.surveys = [...state.surveys, survey.data];
     },

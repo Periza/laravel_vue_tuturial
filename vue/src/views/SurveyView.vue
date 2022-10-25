@@ -3,7 +3,7 @@
         <template v-slot:header>
             <div class="flex items-center justify-between">
                 <h1 class="text-3xl font-bold text-gray-900">
-                    {{ model.id ? model.title : "Create a Survey"}}
+                    {{ route.params.id ? model.title : "Create a Survey"}}
                 </h1>
             </div>
         </template>
@@ -20,8 +20,8 @@
                         </label>
                         <div class="mt-1 flex items-center">
                             <img 
-                                v-if="model.image"
-                                :src="model.image"
+                                v-if="model.image_url"
+                                :src="model.image_url"
                                 :alt="model.title"
                                 class="w-64 h-48 object-cover"
                             />
@@ -73,6 +73,7 @@
                                     opacity-0
                                     cursor-pointer
                                 "
+                                @change="onImageChoose"
                                 />
                             Change
                             </button>
@@ -258,7 +259,7 @@ import QuestionEditor from "../components/editor/QuestionEditor.vue"
 import PageComponent from "../components/PageComponent.vue";
 import { v4 as uuidv4 } from "uuid"
 import store from "../store"
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import { useRoute, useRouter } from "vue-router"
 
 
@@ -276,10 +277,36 @@ let model = ref( {
     questions: []
 });
 
+// Watch to current survey data change and when this happends we update local model variable
+watch(
+    () => store.state.currentSurvey.data,
+    (newVal, oldVal) => {
+        model.value = {
+            ...JSON.parse(JSON.stringify(newVal)),
+            status: newVal.status !== "draft"
+        }
+    }
+);
+
+
 if(route.params.id) {
-    model.value = store.state.surveys.find(
-        (s) => s.id == parseInt(route.params.id)
-    );
+    store.dispatch('getSurvey', route.params.id);
+}
+
+function onImageChoose(ev) {
+    console.log("onImageChoose");
+    const file = ev.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+        // The field to send on backend and apply validations
+        model.value.image = reader.result;
+
+        // The field to display here
+        model.value.image_url = reader.result;
+    }
+
+    reader.readAsDataURL(file);
 }
 
 function addQuestion(index) {
