@@ -14,8 +14,6 @@ class UpdateSurveyRequest extends FormRequest
      */
     public function authorize()
     {
-        $survey = $this->route('survey');
-
         return true;
     }
 
