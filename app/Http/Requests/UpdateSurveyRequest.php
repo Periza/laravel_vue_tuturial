@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdateSurveyRequest extends FormRequest
 {
@@ -14,10 +15,6 @@ class UpdateSurveyRequest extends FormRequest
     public function authorize()
     {
         $survey = $this->route('survey');
-
-        if($this->user()->id !== $survey->user_id) {
-            return false;
-        }
 
         return true;
     }

@@ -11,6 +11,7 @@ use App\Http\Resources\SurveyResource;
 use Exception;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class SurveyController extends Controller
 {
@@ -73,6 +74,8 @@ class SurveyController extends Controller
     public function update(UpdateSurveyRequest $request, Survey $survey)
     {
         $data = $request->validated();
+
+        Gate::authorize('update-survey', $survey);
 
         // Check if image was given and save on local file system
         if(isset($data['image'])) {

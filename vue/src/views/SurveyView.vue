@@ -294,7 +294,6 @@ if(route.params.id) {
 }
 
 function onImageChoose(ev) {
-    console.log("onImageChoose");
     const file = ev.target.files[0];
 
     const reader = new FileReader();
@@ -335,6 +334,7 @@ function questionChange(question) {
 }
 
 function saveSurvey() {
+
     store.dispatch("saveSurvey", model.value).then(({ data} ) => {
         router.push({
             name: "SurveyView",
