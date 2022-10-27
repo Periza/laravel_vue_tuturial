@@ -7,9 +7,10 @@
                 </h1>
             </div>
         </template>
-        <pre>
-        </pre>
-        <form @submit.prevent="saveSurvey">
+        <div v-if="surveyLoading" class="flex justify-center">
+            Loading...
+        </div>
+        <form v-else @submit.prevent="saveSurvey">
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <!-- Survey Fields -->
                 <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -250,6 +251,7 @@
                         </button>
                     </div>
             </div>
+            
         </form>
     </PageComponent>
 </template>
@@ -259,13 +261,15 @@ import QuestionEditor from "../components/editor/QuestionEditor.vue"
 import PageComponent from "../components/PageComponent.vue";
 import { v4 as uuidv4 } from "uuid"
 import store from "../store"
-import { ref, watch } from "vue"
+import { ref, watch, computed } from "vue"
 import { useRoute, useRouter } from "vue-router"
 
 
 const router = useRouter();
 
 const route = useRoute();
+
+const surveyLoading = computed(() => store.state.currentSurvey.loading);
 
 // create empty survey
 let model = ref( {
