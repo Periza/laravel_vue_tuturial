@@ -105,6 +105,14 @@ class SurveyController extends Controller
     {
         $user = $request->user();
 
+        Gate::authorize('delete-survey', $survey);
+
+        // If there is an old image, delete it
+        if($survey->image) {
+            $absolutePath = public_path($survey->image);
+            File::delete($absolutePath);
+        }
+
         if($user->id !== $survey->user_id) {
             return abort(403, 'Unauthorized action.');
         }

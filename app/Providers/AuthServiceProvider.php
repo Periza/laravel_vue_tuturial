@@ -31,7 +31,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('update-survey', function(User $user, Survey $survey) {
-            return $survey->user_id !== $user->id ? 'lalal': 'ne moz';
+            return $survey->user_id == $user->id;
+        });
+
+        Gate::define('delete-survey', function(User $user, Survey $survey) {
+            return $survey->user_id == $user->id;
         });
 
     }
