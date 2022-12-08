@@ -36,7 +36,7 @@
                 <hr class="my-3" />
                 <div v-for="(question, index) of survey.questions" :key="question.id">
                     <QuestionViewer
-                        v-model="answers[questions.id]"
+                        v-model="answers[question.id]"
                         :question="question"
                         :index="index"
                     />
