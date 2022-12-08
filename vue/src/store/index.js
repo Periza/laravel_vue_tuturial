@@ -28,6 +28,18 @@ const store = createStore({
     deleteSurvey({}, id){
       return axiosClient.delete(`/survey/${id}`);
     },
+    getSurveyBySlug({ commit }, slug) {
+      commit("setCurrentSurveyLoading", true);
+      return axiosClient.get(`/survey-by-slug/${slug}`)
+      .then((res) => {
+        commit("setCurrentSurvey", res.data);
+        commit("setCurrentSurveyLoading", false);
+        return res;
+      }).catch((error) => {
+        commit("setCurrentSurveyLoading", false);
+        throw error;
+      });
+    },
     register({ commit }, user) {
       return axiosClient.post("/register", user).then(({ data }) => {
         commit("setUser", data);
