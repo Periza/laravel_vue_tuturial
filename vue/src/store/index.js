@@ -40,6 +40,9 @@ const store = createStore({
         throw error;
       });
     },
+    saveSurveyAnswer({ commit }, { surveyId, answers }) {
+      return axiosClient.post(`/survey/${surveyId}/answer`, {answers});
+    },
     register({ commit }, user) {
       return axiosClient.post("/register", user).then(({ data }) => {
         commit("setUser", data);

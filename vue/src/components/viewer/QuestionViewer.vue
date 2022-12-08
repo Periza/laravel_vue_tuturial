@@ -108,6 +108,11 @@ if(question.type === 'checkbox') {
 
 function onCheckBoxChange($event) {
     const selectedOptions = [];
+    for(let text in model.value) {
+        if(model.value[uuid])
+            selectedOptions.push(uuid)
+    }
+    emits("update:modelValue", selectedOptions);
 }
 
 </script>
