@@ -20,8 +20,19 @@ class Survey extends Model
                     ->saveSlugsTo('slug');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function questions() 
     {
         return $this->hasMany(SurveyQuestion::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\RElations\HasMany
+     */
+    public function answers() 
+    {
+        return $this->hasMany(SurveyAnswer::class);
     }
 }
